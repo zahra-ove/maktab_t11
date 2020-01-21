@@ -1,0 +1,35 @@
+.mytable>tbody>tr>td, .mytable>tbody>tr>th,  .mytable>thead>tr>td, .mytable>thead>tr>th {
+    padding: 10px;
+}
+
+.fpart-first{
+    background-color: rgba(0, 0, 0, 0.801) !important;
+    color: white !important;
+}
+
+.fpart-second{
+    background-color: black !important;
+    color: white !important;
+}
+
+.fpart-first  a, h5{
+    color: white !important;
+}
+
+.fpart-second  a, h5{
+    color: white !important;
+}
+
+#top{
+    background-color: #9f194b !important;
+}
+
+#top ul li a{
+    border-left: 1px solid rgba(0, 0, 0, 0.01) !important;
+    text-decoration: none !important;
+}
+
+#top ul li a:hover{
+    background-color: #d22163;
+}
+
