@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Article;
 
 class ArticlesController extends Controller
 {
@@ -14,7 +15,9 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        //
+        // $articles = Article::all();
+        $articles = Article::orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.articles.index')->with('articles', $articles);
     }
 
     /**
@@ -24,7 +27,7 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.articles.create');
     }
 
     /**
@@ -35,7 +38,20 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string',
+            'body'  => 'required|string'
+        ]);
+
+        $article = new Article();
+
+        $article->article_title  =  $request->post('title');
+        $article->article_body  =  $request->post('body');
+        $article->article_image = 'noimage.jpg';
+
+        $article->save();
+
+        return redirect('admin/articles')->with('status', 'مقاله با موفقیت ذخیره شد.');
     }
 
     /**
@@ -46,7 +62,9 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-        //
+        // return $id;
+        $article = Article::find($id);
+        return view('admin.articles.show')->with('article', $article);
     }
 
     /**

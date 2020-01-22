@@ -149,20 +149,30 @@
             <ul class="nav nav-treeview">
                 <li class="nav-item">
                 <a href="{{route('admin.users.index')}}" class="nav-link">
+                    {{-- <i class="fas fa-users"></i> --}}
                     <i class="fa fa-circle-o nav-icon"></i>
                     <p>لیست کاربران</p>
                 </a>
                 </li>
+
                 <li class="nav-item">
                 <a href="{{route('admin.products.index')}}" class="nav-link">
                     <i class="fa fa-circle-o nav-icon"></i>
                     <p>لیست محصولات</p>
                 </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="{{route('admin.categories.index')}}" class="nav-link">
                         <i class="fa fa-circle-o nav-icon"></i>
                         <p>لیست دسته بندی ها</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{route('admin.articles.index')}}" class="nav-link">
+                        <i class="fa fa-circle-o nav-icon"></i>
+                        <p>لیست مقالات</p>
                     </a>
                 </li>
             </ul>

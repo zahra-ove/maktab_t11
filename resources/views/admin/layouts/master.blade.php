@@ -163,6 +163,8 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="min-height:560px;">
+
+
     <div class="row justify-content-center py-3 mx-3">
         @yield('content')
     </div>
@@ -183,5 +185,17 @@
 <!-- include jQuery -->
     @include('admin.layouts.scripts')
 <!-- End of include jQuery -->
+    {{-- <script src="/node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js"></script> --}}
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .then( editor => {
+                console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+
 </body>
 </html>

@@ -29,4 +29,6 @@
     <!-- template rtl version -->
     <link rel="stylesheet" href="{{asset('adminpanel/dist/css/custom-style.css')}}">
     <link rel="stylesheet" href="{{asset('css/mycss.css')}}">
+    <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
+
   </head>

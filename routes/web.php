@@ -152,4 +152,5 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('users', 'UsersController');
     Route::resource('products', 'ProductsController');
     Route::resource('categories', 'CategoriesController');
+    Route::resource('articles', 'ArticlesController');
 });

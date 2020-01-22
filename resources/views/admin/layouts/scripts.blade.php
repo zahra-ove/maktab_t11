@@ -34,3 +34,9 @@
 <script src="{{asset('adminpanel/dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('adminpanel/dist/js/demo.js')}}"></script>
+
+{{-- adding ckeditor script --}}
+<script src="{{asset('ckeditor/ckeditor.js')}}"></script>
+
+<script src="{{asset('adminpanel/dist/js/jquery.min.js')}}"></script>
+<script src="{{asset('adminpanel/dist/js/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
