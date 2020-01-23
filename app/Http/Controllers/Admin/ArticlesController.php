@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Article;
+use Illuminate\Support\Facades\Storage;
 
 class ArticlesController extends Controller
 {
@@ -40,14 +41,30 @@ class ArticlesController extends Controller
     {
         $request->validate([
             'title' => 'required|string',
-            'body'  => 'required|string'
+            'body'  => 'required|string',
+            'image' => 'nullable|image|max:2048'
         ]);
+
+        if($request->hasFile('image')){
+            //get file name with extension
+            $fileNamewithExtension = $request->file('image')->getClientOriginalName();
+            //get file name
+            $filename = pathinfo($fileNamewithExtension, PATHINFO_FILENAME);
+            //get file extension
+            $fileExtension = $request->file('image')->getClientOriginalExtension();
+            // file name to store
+            $fileNameToStore = $filename.'_'.time().'.'.$fileExtension;
+            $request->file('image')->storeAs('public/article', $fileNameToStore);
+
+        }else{
+            $fileNameToStore = 'noimage.jpg';
+        }
 
         $article = new Article();
 
         $article->article_title  =  $request->post('title');
-        $article->article_body  =  $request->post('body');
-        $article->article_image = 'noimage.jpg';
+        $article->article_body   =  $request->post('body');
+        $article->article_image  = $fileNameToStore;
 
         $article->save();
 
@@ -75,7 +92,8 @@ class ArticlesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::find($id);
+        return view('admin.articles.edit')->with('article', $article);
     }
 
     /**
@@ -87,7 +105,44 @@ class ArticlesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|string',
+            'body'  => 'required|string',
+            'image' => 'nullable|image|max:2048'
+        ]);
+
+        // image processing
+        if($request->hasFile('image')){
+            //get file name with extension
+            $fileNamewithExtension = $request->file('image')->getClientOriginalName();
+            //get file name
+            $filename = pathinfo($fileNamewithExtension, PATHINFO_FILENAME);
+            //get file extension
+            $fileExtension = $request->file('image')->getClientOriginalExtension();
+            // file name to store
+            $fileNameToStore = $filename.'_'.time().'.'.$fileExtension;
+            $request->file('image')->storeAs('public/articles', $fileNameToStore);
+
+        }else{
+            $fileNameToStore = 'noimage.jpg';   //if no image is selected by user, then place default image as noimage to this article
+        }
+
+        //finding intended article based on id
+        $article = Article::find($id);
+
+        //saving user input data
+        $article->article_title = $request->post('title');
+        $article->article_body = $request->post('body');
+        if($request->hasFile('image')){
+            Storage::delete('public/articles'.$article->article_image);   //first delete old image
+            $article->article_image = $fileNameToStore;   //then save new image that is uploaded
+        }
+
+
+        $article->save();
+
+        return redirect('admin/articles')->with('status', 'مقاله با موفقیت ویرایش شد.');
+
     }
 
     /**
@@ -98,6 +153,14 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $article = Article::find($id);
+
+        if($article->article_image != 'noimage.jpg'){
+            Storage::delete('public/articles'. $article->article_image);  //delete image
+        }
+        $article->delete();
+
+        return redirect('admin/articles')->with('status', 'مقاله با موفقیت حذف شد.');
     }
 }

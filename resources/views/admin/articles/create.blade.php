@@ -19,7 +19,7 @@
 
     <br/><br/><br/>
     <div style="width:70%;" class="mx-auto">
-        <form action="{{route('admin.articles.store')}}" method="post">
+        <form action="{{route('admin.articles.store')}}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div>
@@ -31,7 +31,15 @@
 
             <div  class="form-group" >
                 <label for="editor">متن مقاله</label>
-                <textarea name="body" id="editor" row="30" class="form-control" placeholder="متن مقاله را در این قسمت وارد نمایید"></textarea>
+                <div class="jumbotron">
+                    <textarea name="body" id="editor" row="30" class="form-control"></textarea>
+                </div>
+            </div>
+
+
+            <div  class="form-group" >
+                <label for="img">آپلود تصویر مقاله</label>
+                <input type="file" name="image" id="img" >
             </div>
 
             <br/><br/>
