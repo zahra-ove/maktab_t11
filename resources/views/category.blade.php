@@ -601,5 +601,8 @@
       </div>
     </div>
 </div>
+<script>
+    // document.getElementsByTagName("body")[0].innerHTML=" ";
+    </script>
 
 @endsection

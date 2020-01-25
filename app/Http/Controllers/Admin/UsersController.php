@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Gender;
 class UsersController extends Controller
@@ -43,7 +44,7 @@ class UsersController extends Controller
             'name' => 'required|string',
             'username' => 'required|string',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed|min:8',
             'age' => 'nullable|numeric',
             'gender_id' => 'required|numeric'
         ]);
@@ -53,7 +54,7 @@ class UsersController extends Controller
         $newUser->name = $request->post('name');
         $newUser->username = $request->post('username');
         $newUser->email = $request->post('email');
-        $newUser->password = $request->post('password');
+        $newUser->password = Hash::make($request->post('password'));
         $newUser->age = $request->post('age');
         $newUser->gender_id = $request->post('gender_id');
 

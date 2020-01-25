@@ -17,7 +17,7 @@
         <br><br>
 
 
-        <form action="{{route('admin.products.store')}}" method="post">
+        <form action="{{route('admin.products.store')}}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group">
@@ -55,6 +55,11 @@
                         <option value="8">ورزش و سفر</option>
                         <option value="9">خوردنی و آشامیدنی</option>
                   </select>
+            </div>
+
+            <div  class="form-group" >
+                <label for="productImg">آپلود تصویر محصول</label>
+                <input type="file" name="image" id="productImg" >
             </div>
 
             {{-- <br/><br/><br/><br/> --}}

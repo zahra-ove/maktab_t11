@@ -37,6 +37,16 @@
       </div>
     </div>
     <!-- Feature Box End--> --}}
+
+{{-- Login success message --}}
+    @if(session('status'))
+        <div class="container alert alert-success alert-dismissable">
+            <button class="close text-white" type="button" data-dismiss="alert">&times;&nbsp;&nbsp;</button>
+            {{session('status')}}
+        </div>
+    @endif
+{{-- END of Login success message --}}
+
     <div class="container">
       <div class="row">
         <!-- Left Part Start-->

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
-
+use App\Pimage;
 // code mahsool bayad unique bashad ke in nokte ra dar jadvale product dar nazar nagereftam.
 class ProductsController extends Controller
 {
@@ -44,9 +44,11 @@ class ProductsController extends Controller
             'product_name'  =>  'required|string',
             'product_price' =>  'required|string',
             'product_count' =>  'required|string',
-            'category_id'   =>  'nullable|numeric'
+            'category_id'   =>  'nullable|numeric',
+            'image'         =>  'nullable|image|max:2048'
         ]);
 
+        //saving product's attribute
         $newProduct = new Product();
 
         $newProduct->product_code  =  $request->post('product_code');
@@ -56,6 +58,30 @@ class ProductsController extends Controller
         $newProduct->category_id   =  $request->post('category_id');
 
         $newProduct->save();
+
+
+        if($request->hasFile('image')){
+            //get file name with extension
+            $fileNamewithExtension = $request->file('image')->getClientOriginalName();
+            //get file name
+            $filename = pathinfo($fileNamewithExtension, PATHINFO_FILENAME);
+            //get file extension
+            $fileExtension = $request->file('image')->getClientOriginalExtension();
+            // file name to store
+            $fileNameToStore = $filename.'_'.time().'.'.$fileExtension;
+            $request->file('image')->storeAs('public/products', $fileNameToStore);
+        }else{
+            $fileNameToStore = 'noimage.jpg';   //if no image is selected by user, then place default image as noimage to this article
+        }
+
+
+            //storing product's image in Pimage table
+            $newProductImage = new Pimage();
+            $newProductImage->pimage_name = $fileNameToStore;
+            $newProductImage->product_id = $newProduct->id;
+
+            $newProductImage->save();
+
 
         return redirect('admin/products')->with('status', 'محصول جدید با موفقیت اضافه شد.');
     }

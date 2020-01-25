@@ -143,6 +143,8 @@ Route::get('/privatePolicy', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/register', 'UsersController@index');
+// Route::post('/register', 'UsersController@store');
 
 
 /* Go to admin panel */
@@ -154,3 +156,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('categories', 'CategoriesController');
     Route::resource('articles', 'ArticlesController');
 });
+
+//======================
+

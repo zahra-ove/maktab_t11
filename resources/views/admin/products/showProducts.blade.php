@@ -22,7 +22,7 @@
                 <th>قیمت</th>
                 <th>موجودی</th>
                 <th>دسته بندی</th>
-                {{-- <th>تصویر</th> --}}
+                <th>تصویر</th>
                 <th>تنظیمات</th>
             </tr>
         </thead>
@@ -35,7 +35,7 @@
                     <td>{{$product->product_price}}</td>
                     <td>{{$product->product_count}}</td>
                     <td>{{$product->category->category_name}}</td>
-                    {{-- <td>{{$product->pimages->pimage_name}}</td> --}}
+                    <td><img src="{{asset('storage/products/'.$product->pimages->first()->pimage_name)}}" style="width:50%;height:50%;"></td>
                     <td>
                         <div class="btn-group">
                         <a href="{{ route('admin.products.edit', ['product' => $product] ) }}" class="btn btn-sm btn-primary">ویرایش</a>
